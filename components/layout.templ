@@ -1,0 +1,34 @@
+package components
+
+var links = [][]string{
+  {"/blog", "Blog"},
+}
+
+templ Layout(name string) {
+	<html lang="en">
+		<head>
+			<title>{ name }</title>
+			<link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
+			<link rel="stylesheet" href="/assets/css/styles.css"/>
+		</head>
+		<body>
+			<div class="absolute top-0 left-0 w-full h-[24rem] bg-gradient-to-b from-blue-100 -z-10"></div>
+			<div class="max-w-3xl mx-auto">
+				<header class="md:my-8 pb-1">
+					<div class="flex flex-col md:flex-row md:justify-between md:items-center">
+						<div><a href="/" class="cursor-pointer text-xl font-bold tracking-wider">rv</a></div>
+						<div class="flex flex-col sm:flex-row sm:space-x-10 sm:items-center">
+							for _, item := range links {
+								<a href={ templ.SafeURL(item[0]) } class="hover:text-orange-800">{ item[1] }</a>
+							}
+						</div>
+					</div>
+				</header>
+				<div class="mb-10">
+					{ children... }
+				</div>
+			</div>
+		</body>
+	</html>
+}
+
