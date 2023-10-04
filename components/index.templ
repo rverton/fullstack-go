@@ -1,11 +1,17 @@
 package components
 
+import "rvweb/components/ui"
+
 templ Index() {
 	@Layout("robinverton.de") {
 		<div class="space-y-6 text-lg text-gray-500">
 			<div class="my-5 flex justify-between">
 				<div class="text-3xl">Hey</div>
 			</div>
+			@ui.Button("Click me")
+			@ui.Card("Example Card", "This is an example card") {
+				<div class="text-3xl">Example Content</div>
+			}
 		</div>
 	}
 }
