@@ -1,6 +1,7 @@
-package rvweb
+package web
 
 import (
+	"log"
 	"net/http"
 	"rvweb/components"
 
@@ -12,5 +13,10 @@ func (hs *HttpServer) routes() {
 }
 
 func (hs *HttpServer) indexHandler(c echo.Context) error {
-	return hs.Render(http.StatusOK, c, components.Index())
+	posts, err := hs.Repository.GetPosts()
+	if err != nil {
+		log.Println("error retrieving posts", err)
+	}
+
+	return hs.Render(http.StatusOK, c, components.Index(posts))
 }

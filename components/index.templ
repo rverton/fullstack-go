@@ -1,8 +1,11 @@
 package components
 
-import "rvweb/components/ui"
+import (
+    "rvweb/components/ui"
+    "rvweb/repository"
+)
 
-templ Index() {
+templ Index(posts *[]repository.Post) {
 	@Layout("robinverton.de") {
 		<div class="space-y-6 text-lg text-gray-500">
 			<div class="my-5 flex justify-between">
@@ -11,6 +14,11 @@ templ Index() {
 			@ui.Button("Click me")
 			@ui.Card("Example Card", "This is an example card") {
 				<div class="text-3xl">Example Content</div>
+			}
+			for _, post := range *posts {
+				@ui.Card(post.Title, "Content") {
+					<div class="text-3xl">{ post.Body }</div>
+				}
 			}
 		</div>
 	}

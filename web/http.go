@@ -1,14 +1,18 @@
-package rvweb
+package web
 
 import (
 	"context"
+	"rvweb/repository"
 
 	"github.com/a-h/templ"
+	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 )
 
 type HttpServer struct {
 	Server *echo.Echo
+
+	Repository *repository.Repository
 }
 
 func (hs *HttpServer) Render(status int, c echo.Context, view templ.Component) error {
@@ -16,9 +20,10 @@ func (hs *HttpServer) Render(status int, c echo.Context, view templ.Component) e
 	return view.Render(context.Background(), c.Response().Writer)
 }
 
-func NewHttpServer() *HttpServer {
+func NewHttpServer(db *sqlx.DB) *HttpServer {
 	hs := &HttpServer{
-		Server: echo.New(),
+		Server:     echo.New(),
+		Repository: &repository.Repository{DB: db},
 	}
 
 	// setup routes
