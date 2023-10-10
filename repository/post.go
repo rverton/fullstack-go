@@ -1,7 +1,7 @@
 package repository
 
 type Post struct {
-	ID    int64  `db:"id"`
+	ID    int64  `db:"id" validate:"required"`
 	Title string `db:"title"`
 	Body  string `db:"body"`
 }
