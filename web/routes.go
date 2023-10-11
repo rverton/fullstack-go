@@ -26,15 +26,14 @@ func (hs *HttpServer) indexHandler(c echo.Context) error {
 }
 func (hs *HttpServer) createHandler(c echo.Context) error {
 
-	// show create form
-
-	return c.String(http.StatusOK, "Hello, World!")
+	return hs.Render(http.StatusOK, c, components.CreatePost())
 }
 
 func (hs *HttpServer) insertHandler(c echo.Context) error {
 
 	type CreatePost struct {
-		Title string `validate:"required"`
+		Title string `validate:"required" form:"title"`
+		Body  string `validate:"required" form:"body"`
 	}
 
 	p := new(CreatePost)
@@ -53,5 +52,9 @@ func (hs *HttpServer) insertHandler(c echo.Context) error {
 		return c.String(http.StatusOK, "validation failed")
 	}
 
-	return c.String(http.StatusOK, "Hello, World!")
+	if _, err := hs.Repository.CreatePost(p.Title, p.Body); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.Redirect(http.StatusFound, "/")
 }

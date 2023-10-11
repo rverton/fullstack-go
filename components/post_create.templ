@@ -1,0 +1,56 @@
+package components
+
+import (
+)
+
+templ CreatePost() {
+	@Layout("Create Post") {
+		<form method="post" action="/post">
+			<div class="flex items-center justify-center w-full">
+				<div class="rounded-xl border bg-card text-card-foreground shadow w-full">
+					<div class="flex flex-col space-y-1.5 p-6">
+						<h3 class="font-semibold leading-none tracking-tight">Create a post</h3>
+					</div>
+					<div class="p-6 pt-0 grid gap-6">
+						<div class="grid grid-cols-2 gap-4"></div>
+						<div class="grid gap-2">
+							<label
+ 								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+ 								for="subject"
+							>Title</label>
+							<input
+ 								name="Title"
+ 								class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+ 								id="subject"
+ 								placeholder="My new post"
+							/>
+						</div>
+						<div class="grid gap-2">
+							<label
+ 								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+ 								for="description"
+							>Body</label>
+							<textarea
+ 								name="body"
+ 								class="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+ 								id="description"
+ 								placeholder="Lorem upsum."
+							></textarea>
+						</div>
+					</div>
+					<div class="flex items-center p-6 pt-0 justify-between space-x-2">
+						<a
+ 							href="/"
+ 							class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+						>Cancel</a>
+						<button
+ 							type="submit"
+ 							class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+						>Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	}
+}
+

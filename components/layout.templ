@@ -1,7 +1,8 @@
 package components
 
 var links = [][]string{
-  {"/blog", "Blog"},
+  {"/post", "Create Post"},
+  {"https://github.com", "Github"},
 }
 
 templ Layout(name string) {
@@ -16,7 +17,7 @@ templ Layout(name string) {
 			<div class="max-w-3xl mx-auto">
 				<header class="md:my-8 pb-1">
 					<div class="flex flex-col md:flex-row md:justify-between md:items-center">
-						<div><a href="/" class="cursor-pointer text-xl font-bold tracking-wider">rv</a></div>
+						<div><a href="/" class="cursor-pointer text-xl font-bold tracking-wider">index</a></div>
 						<div class="flex flex-col sm:flex-row sm:space-x-10 sm:items-center">
 							for _, item := range links {
 								<a href={ templ.SafeURL(item[0]) } class="hover:text-orange-800">{ item[1] }</a>
