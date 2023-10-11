@@ -9,3 +9,5 @@ for my own projects.
 - [validator](https://github.com/go-playground/validator) for validation
 - Tailwind for styling
 - Make for commands
+
+<img width="1003" alt="image" src="https://github.com/rverton/fullstack-go/assets/1506585/8d92d592-2a14-4ee9-b0c3-f6442965311d">
