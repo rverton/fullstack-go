@@ -1,6 +1,7 @@
 package components
 
 import (
+    "rvweb/components/ui"
 )
 
 templ CreatePost() {
@@ -12,18 +13,9 @@ templ CreatePost() {
 						<h3 class="font-semibold leading-none tracking-tight">Create a post</h3>
 					</div>
 					<div class="p-6 pt-0 grid gap-6">
-						<div class="grid grid-cols-2 gap-4"></div>
+						<div class="grid grid-cols-2 gap-4">test</div>
 						<div class="grid gap-2">
-							<label
- 								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
- 								for="subject"
-							>Title</label>
-							<input
- 								name="Title"
- 								class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
- 								id="subject"
- 								placeholder="My new post"
-							/>
+							@ui.Input("Title", "Title of the post", "")
 						</div>
 						<div class="grid gap-2">
 							<label
@@ -39,14 +31,8 @@ templ CreatePost() {
 						</div>
 					</div>
 					<div class="flex items-center p-6 pt-0 justify-between space-x-2">
-						<a
- 							href="/"
- 							class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-						>Cancel</a>
-						<button
- 							type="submit"
- 							class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
-						>Submit</button>
+						@ui.LinkButton("Cancel", "/")
+						@ui.Button("Create")
 					</div>
 				</div>
 			</div>
