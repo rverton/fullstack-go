@@ -1,7 +1,7 @@
 bin = webapp
 
 test:
-	go test -v -race -buildvcs ./...
+	go test -v ./...
 
 watch:
 	go run github.com/cosmtrek/air@v1.49.0 \

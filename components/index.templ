@@ -10,7 +10,7 @@ templ Index(posts *[]repository.Post) {
 		@ui.LinkButton("Create Post", "/post")
 		<div class="pt-10 text-lg text-gray-500 grid grid-cols-2 gap-4">
 			@ui.Card("Example Post", "2023-01-01") {
-				<div class="text-3xl">Example Content</div>
+				<div class="text-xl">Example Content</div>
 			}
 			for _, post := range *posts {
 				@ui.Card(post.Title, "2023-01-01") {
