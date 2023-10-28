@@ -1,12 +1,12 @@
 package web
 
 import (
+	"log/slog"
 	"net/http"
 	"rvweb/components"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/gommon/log"
 )
 
 func (hs *HttpServer) routes() {
@@ -19,14 +19,14 @@ func (hs *HttpServer) routes() {
 func (hs *HttpServer) indexHandler(c echo.Context) error {
 	posts, err := hs.Repository.GetPosts()
 	if err != nil {
-		log.Errorf("failed to get posts: %w", err)
+		slog.Error("failed to get posts: %w", err)
 	}
 
 	return hs.Render(http.StatusOK, c, components.Index(posts))
 }
 func (hs *HttpServer) createHandler(c echo.Context) error {
 
-	return hs.Render(http.StatusOK, c, components.CreatePost())
+	return hs.Render(http.StatusOK, c, components.CreatePost(nil))
 }
 
 func (hs *HttpServer) insertHandler(c echo.Context) error {
@@ -44,12 +44,9 @@ func (hs *HttpServer) insertHandler(c echo.Context) error {
 
 	if err := c.Validate(p); err != nil {
 		validationErrors := err.(validator.ValidationErrors)
+		errors := convertErrors(validationErrors)
 
-		for _, e := range validationErrors {
-			log.Printf("ERROR: %v: %v", e.Field(), e.Error())
-		}
-
-		return c.String(http.StatusOK, "validation failed")
+		return hs.Render(http.StatusBadRequest, c, components.CreatePost(errors))
 	}
 
 	if _, err := hs.Repository.CreatePost(p.Title, p.Body); err != nil {

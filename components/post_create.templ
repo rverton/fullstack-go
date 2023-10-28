@@ -1,10 +1,10 @@
 package components
 
 import (
-    "rvweb/components/ui"
+	"rvweb/components/ui"
 )
 
-templ CreatePost() {
+templ CreatePost(errors map[string]string) {
 	@Layout("Create Post") {
 		<form method="post" action="/post">
 			<div class="flex items-center justify-center w-full">
@@ -16,6 +16,7 @@ templ CreatePost() {
 						<div class="grid grid-cols-2 gap-4">test</div>
 						<div class="grid gap-2">
 							@ui.Input("Title", "Title of the post", "")
+							@ui.Error(errors, "Title")
 						</div>
 						<div class="grid gap-2">
 							<label
@@ -28,6 +29,7 @@ templ CreatePost() {
  								id="description"
  								placeholder="Lorem upsum."
 							></textarea>
+							@ui.Error(errors, "Body")
 						</div>
 					</div>
 					<div class="flex items-center p-6 pt-0 justify-between space-x-2">
@@ -39,4 +41,3 @@ templ CreatePost() {
 		</form>
 	}
 }
-

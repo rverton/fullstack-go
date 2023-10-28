@@ -1,0 +1,7 @@
+package ui
+
+templ Error(errors map[string]string, field string) {
+	if val, ok := errors[field]; ok {
+		<p class="text-sm text-red-500">&times; { val }</p>
+	}
+}
