@@ -1,18 +1,11 @@
 bin = webapp
 
-audit:
-	go mod verify
-	go vet ./...
-	go run honnef.co/go/tools/cmd/staticcheck@latest -checks=all,-ST1000,-U1000 ./...
-	go run golang.org/x/vuln/cmd/govulncheck@latest ./...
-	go test -race -buildvcs -vet=off ./...
-
 test:
 	go test -v -race -buildvcs ./...
 
 watch:
-	go run github.com/cosmtrek/air@v1.43.0 \
-	    --build.cmd "make build-without-tailwind" --build.bin "./dist/$(bin)" --build.delay "100" \
+	go run github.com/cosmtrek/air@v1.49.0 \
+	    --build.cmd "templ generate && go build -o ./dist/$(bin) ./cmd/$(bin)" --build.bin "./dist/$(bin)" --build.delay "100" \
 	    --build.exclude_regex "(.*?)_templ.go" \
 	    --build.include_ext "go, tpl, templ, html, css, js, sql, svg" \
 	    --misc.clean_on_exit "true" & \
@@ -21,10 +14,7 @@ watch:
 run: build
 	./dist/$(bin)
 
-build: build-templ build-tailwind
-	go build -o ./dist/$(bin) ./cmd/$(bin)/
-
-build-without-tailwind: build-templ
+build: build-tailwind build-templ 
 	go build -o ./dist/$(bin) ./cmd/$(bin)/
 
 build-tailwind:
@@ -32,3 +22,13 @@ build-tailwind:
 
 build-templ:
 	templ generate
+
+audit:
+	go mod verify
+	go vet ./...
+	go run honnef.co/go/tools/cmd/staticcheck@latest -checks=all,-ST1000,-U1000 ./...
+	go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+	go test -race -buildvcs -vet=off ./...
+
+tidy:
+	go mod tidy
