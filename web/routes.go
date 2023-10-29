@@ -26,7 +26,7 @@ func (hs *HttpServer) indexHandler(c echo.Context) error {
 }
 func (hs *HttpServer) createHandler(c echo.Context) error {
 
-	return hs.Render(http.StatusOK, c, components.CreatePost(nil))
+	return hs.Render(http.StatusOK, c, components.CreatePost(nil, nil))
 }
 
 func (hs *HttpServer) insertHandler(c echo.Context) error {
@@ -46,7 +46,12 @@ func (hs *HttpServer) insertHandler(c echo.Context) error {
 		validationErrors := err.(validator.ValidationErrors)
 		errors := convertErrors(validationErrors)
 
-		return hs.Render(http.StatusBadRequest, c, components.CreatePost(errors))
+		prefill := map[string]string{
+			"Title": p.Title,
+			"Body":  p.Body,
+		}
+
+		return hs.Render(http.StatusBadRequest, c, components.CreatePost(prefill, errors))
 	}
 
 	if _, err := hs.Repository.CreatePost(p.Title, p.Body); err != nil {

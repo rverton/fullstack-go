@@ -4,7 +4,7 @@ import (
 	"rvweb/components/ui"
 )
 
-templ CreatePost(errors map[string]string) {
+templ CreatePost(form map[string]string, errors map[string]string) {
 	@Layout("Create Post") {
 		<form method="post" action="/post">
 			<div class="flex items-center justify-center w-full">
@@ -13,9 +13,8 @@ templ CreatePost(errors map[string]string) {
 						<h3 class="font-semibold leading-none tracking-tight">Create a post</h3>
 					</div>
 					<div class="p-6 pt-0 grid gap-6">
-						<div class="grid grid-cols-2 gap-4">test</div>
 						<div class="grid gap-2">
-							@ui.Input("Title", "Title of the post", "")
+							@ui.Input("Title", "Title of the post", form["Title"])
 							@ui.Error(errors, "Title")
 						</div>
 						<div class="grid gap-2">
