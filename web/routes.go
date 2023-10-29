@@ -1,7 +1,6 @@
 package web
 
 import (
-	"log/slog"
 	"net/http"
 	"rvweb/components"
 
@@ -19,14 +18,24 @@ func (hs *HttpServer) routes() {
 func (hs *HttpServer) indexHandler(c echo.Context) error {
 	posts, err := hs.Repository.GetPosts()
 	if err != nil {
-		slog.Error("failed to get posts: %w", err)
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return hs.Render(http.StatusOK, c, components.Index(posts))
+	return hs.Render(http.StatusOK, c,
+		components.Layout(
+			"Index Post",
+			components.Index(posts),
+		),
+	)
 }
 func (hs *HttpServer) createHandler(c echo.Context) error {
 
-	return hs.Render(http.StatusOK, c, components.CreatePost(nil, nil))
+	return hs.Render(http.StatusOK, c,
+		components.Layout(
+			"Create Post",
+			components.CreatePost(nil, nil),
+		),
+	)
 }
 
 func (hs *HttpServer) insertHandler(c echo.Context) error {
@@ -46,12 +55,17 @@ func (hs *HttpServer) insertHandler(c echo.Context) error {
 		validationErrors := err.(validator.ValidationErrors)
 		errors := convertErrors(validationErrors)
 
-		prefill := map[string]string{
+		values := map[string]string{
 			"Title": p.Title,
 			"Body":  p.Body,
 		}
 
-		return hs.Render(http.StatusBadRequest, c, components.CreatePost(prefill, errors))
+		return hs.Render(http.StatusBadRequest, c,
+			components.Layout(
+				"Create Post",
+				components.CreatePost(values, errors),
+			),
+		)
 	}
 
 	if _, err := hs.Repository.CreatePost(p.Title, p.Body); err != nil {

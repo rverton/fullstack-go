@@ -35,7 +35,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 func NewHttpServer(db *sqlx.DB) *HttpServer {
 	hs := &HttpServer{
 		Server:     echo.New(),
-		Repository: &repository.Repository{DB: db},
+		Repository: repository.NewRepository(db),
 	}
 
 	// setup validation

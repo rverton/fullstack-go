@@ -1,6 +1,6 @@
 # Fullstack Go - Template
 
-This is a template for a fullstack Go web application. I'm using this
+This is a template for a fullstack Go web applications. I'm using this
 for my own projects.
 
 - [echo](https://echo.labstack.com/) for web routing capabilities
@@ -8,6 +8,7 @@ for my own projects.
 - [sqlx](https://github.com/jmoiron/sqlx) for database access
 - [validator](https://github.com/go-playground/validator) for validation
 - [air](https://github.com/cosmtrek/air) for auto code reloading during dev
+- [go-migrate](https://github.com/golang-migrate/migrate) for migrations
 - Tailwind for styling
 - `make` for commands (build, test, watch, ...)
 

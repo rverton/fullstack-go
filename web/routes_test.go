@@ -10,9 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var exampleSchema = `
-    CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, title TEXT, body TEXT)
-`
 var r repository.Repository
 
 // test setup
@@ -23,7 +20,11 @@ func TestMain(m *testing.M) {
 		log.Fatalln(err)
 	}
 
-	db.MustExec(exampleSchema)
+	err = repository.Migrate(db.DB, "file://../migrations")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	r = repository.Repository{DB: db}
 
 	code := m.Run()

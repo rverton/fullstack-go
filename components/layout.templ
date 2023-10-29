@@ -1,11 +1,11 @@
 package components
 
 var links = [][]string{
-  {"/post", "Create Post"},
-  {"https://github.com", "Github"},
+	{"/post", "Create Post"},
+	{"https://github.com", "Github"},
 }
 
-templ Layout(name string) {
+templ Layout(name string, content templ.Component) {
 	<html lang="en">
 		<head>
 			<title>{ name }</title>
@@ -26,10 +26,9 @@ templ Layout(name string) {
 					</div>
 				</header>
 				<div class="mb-10">
-					{ children... }
+					{! content }
 				</div>
 			</div>
 		</body>
 	</html>
 }
-

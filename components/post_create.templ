@@ -5,38 +5,36 @@ import (
 )
 
 templ CreatePost(form map[string]string, errors map[string]string) {
-	@Layout("Create Post") {
-		<form method="post" action="/post">
-			<div class="flex items-center justify-center w-full">
-				<div class="rounded-xl border bg-card text-card-foreground shadow w-full">
-					<div class="flex flex-col space-y-1.5 p-6">
-						<h3 class="font-semibold leading-none tracking-tight">Create a post</h3>
+	<form method="post" action="/post">
+		<div class="flex items-center justify-center w-full">
+			<div class="rounded-xl border bg-card text-card-foreground shadow w-full">
+				<div class="flex flex-col space-y-1.5 p-6">
+					<h3 class="font-semibold leading-none tracking-tight">Create a post</h3>
+				</div>
+				<div class="p-6 pt-0 grid gap-6">
+					<div class="grid gap-2">
+						@ui.Input("Title", "Title of the post", form["Title"])
+						@ui.Error(errors, "Title")
 					</div>
-					<div class="p-6 pt-0 grid gap-6">
-						<div class="grid gap-2">
-							@ui.Input("Title", "Title of the post", form["Title"])
-							@ui.Error(errors, "Title")
-						</div>
-						<div class="grid gap-2">
-							<label
- 								class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
- 								for="description"
-							>Body</label>
-							<textarea
- 								name="body"
- 								class="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
- 								id="description"
- 								placeholder="Lorem upsum."
-							></textarea>
-							@ui.Error(errors, "Body")
-						</div>
-					</div>
-					<div class="flex items-center p-6 pt-0 justify-between space-x-2">
-						@ui.LinkButton("Cancel", "/")
-						@ui.Button("Create")
+					<div class="grid gap-2">
+						<label
+ 							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+ 							for="description"
+						>Body</label>
+						<textarea
+ 							name="body"
+ 							class="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+ 							id="description"
+ 							placeholder="Lorem upsum."
+						></textarea>
+						@ui.Error(errors, "Body")
 					</div>
 				</div>
+				<div class="flex items-center p-6 pt-0 justify-between space-x-2">
+					@ui.LinkButton("Cancel", "/")
+					@ui.Button("Create")
+				</div>
 			</div>
-		</form>
-	}
+		</div>
+	</form>
 }
