@@ -8,6 +8,7 @@ watch:
 	air \
 	    --build.cmd "templ generate && go build -o ./dist/$(bin) ./cmd/$(bin)" --build.bin "./dist/$(bin)" \
 	    --build.include_ext "go, templ" \
+		--build.exclude_regex ".*_templ.go" \
 	    --misc.clean_on_exit "true" & \
 	npx tailwindcss -i ./assets/css/input.css -o ./assets/css/styles.css --watch
 	# templ generate --watch

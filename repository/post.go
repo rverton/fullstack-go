@@ -1,9 +1,12 @@
 package repository
 
+import "time"
+
 type Post struct {
-	ID    int64  `db:"id" validate:"required"`
-	Title string `db:"title"`
-	Body  string `db:"body"`
+	ID        int64     `db:"id" validate:"required"`
+	Title     string    `db:"title"`
+	Body      string    `db:"body"`
+	CreatedAt time.Time `db:"created_at"`
 }
 
 func (r *Repository) CreatePost(title string, body string) (int64, error) {
