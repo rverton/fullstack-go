@@ -1,16 +1,15 @@
-package web
+package repository
 
 import (
 	"log"
 	"os"
-	"rvweb/repository"
 	"testing"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/stretchr/testify/assert"
 )
 
-var r repository.Repository
+var r Repository
 
 // test setup
 func TestMain(m *testing.M) {
@@ -20,12 +19,12 @@ func TestMain(m *testing.M) {
 		log.Fatalln(err)
 	}
 
-	err = repository.Migrate(db.DB, "file://../migrations")
+	err = Migrate(db.DB, "file://../migrations")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	r = repository.Repository{DB: db}
+	r = Repository{DB: db}
 
 	code := m.Run()
 	os.Exit(code)
